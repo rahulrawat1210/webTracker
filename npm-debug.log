@@ -1,0 +1,105 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '@types/express-device' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.4
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData @types/express-device
+8 silly fetchNamedPackageData @types/express-device
+9 silly mapToRegistry name @types/express-device
+10 silly mapToRegistry scope (from package name) @types
+11 verbose mapToRegistry no registry URL found in name for scope @types
+12 silly mapToRegistry using default registry
+13 silly mapToRegistry registry https://registry.npmjs.org/
+14 silly mapToRegistry data Result {
+14 silly mapToRegistry   raw: '@types/express-device',
+14 silly mapToRegistry   scope: '@types',
+14 silly mapToRegistry   escapedName: '@types%2fexpress-device',
+14 silly mapToRegistry   name: '@types/express-device',
+14 silly mapToRegistry   rawSpec: '',
+14 silly mapToRegistry   spec: 'latest',
+14 silly mapToRegistry   type: 'tag' }
+15 silly mapToRegistry uri https://registry.npmjs.org/@types%2fexpress-device
+16 verbose request uri https://registry.npmjs.org/@types%2fexpress-device
+17 verbose request no auth needed
+18 info attempt registry request try #1 at 9:40:36 PM
+19 verbose request id 4fa08abb62507c4b
+20 http request GET https://registry.npmjs.org/@types%2fexpress-device
+21 http 404 https://registry.npmjs.org/@types%2fexpress-device
+22 verbose headers { date: 'Thu, 21 Jun 2018 16:10:38 GMT',
+22 verbose headers   'content-type': 'application/json',
+22 verbose headers   'content-length': '21',
+22 verbose headers   connection: 'keep-alive',
+22 verbose headers   'set-cookie': [ '__cfduid=d9eafa1c3df5345f9392b2a724f96b7751529597437; expires=Fri, 21-Jun-19 16:10:37 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+22 verbose headers   'cf-cache-status': 'MISS',
+22 verbose headers   'cf-ray': '42e7bf0ffbb388a2-BOM',
+22 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+22 verbose headers   vary: 'Accept-Encoding',
+22 verbose headers   server: 'cloudflare' }
+23 silly get cb [ 404,
+23 silly get   { date: 'Thu, 21 Jun 2018 16:10:38 GMT',
+23 silly get     'content-type': 'application/json',
+23 silly get     'content-length': '21',
+23 silly get     connection: 'keep-alive',
+23 silly get     'set-cookie': [ '__cfduid=d9eafa1c3df5345f9392b2a724f96b7751529597437; expires=Fri, 21-Jun-19 16:10:37 GMT; path=/; domain=.registry.npmjs.org; HttpOnly' ],
+23 silly get     'cf-cache-status': 'MISS',
+23 silly get     'cf-ray': '42e7bf0ffbb388a2-BOM',
+23 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+23 silly get     vary: 'Accept-Encoding',
+23 silly get     server: 'cloudflare' } ]
+24 silly fetchPackageMetaData Error: Not found : @types/express-device
+24 silly fetchPackageMetaData     at makeError (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:302:12)
+24 silly fetchPackageMetaData     at CachingRegistryClient.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:290:14)
+24 silly fetchPackageMetaData     at Request._callback (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:210:14)
+24 silly fetchPackageMetaData     at Request.self.callback (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:187:22)
+24 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
+24 silly fetchPackageMetaData     at Request.emit (events.js:191:7)
+24 silly fetchPackageMetaData     at Request.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:1048:10)
+24 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+24 silly fetchPackageMetaData     at Request.emit (events.js:188:7)
+24 silly fetchPackageMetaData     at IncomingMessage.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:969:12)
+24 silly fetchPackageMetaData  error for @types/express-device { Error: Not found : @types/express-device
+24 silly fetchPackageMetaData     at makeError (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:302:12)
+24 silly fetchPackageMetaData     at CachingRegistryClient.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:290:14)
+24 silly fetchPackageMetaData     at Request._callback (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:210:14)
+24 silly fetchPackageMetaData     at Request.self.callback (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:187:22)
+24 silly fetchPackageMetaData     at emitTwo (events.js:106:13)
+24 silly fetchPackageMetaData     at Request.emit (events.js:191:7)
+24 silly fetchPackageMetaData     at Request.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:1048:10)
+24 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+24 silly fetchPackageMetaData     at Request.emit (events.js:188:7)
+24 silly fetchPackageMetaData     at IncomingMessage.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:969:12) pkgid: '@types/express-device', statusCode: 404, code: 'E404' }
+25 silly rollbackFailedOptional Starting
+26 silly rollbackFailedOptional Finishing
+27 silly runTopLevelLifecycles Finishing
+28 silly install printInstalled
+29 verbose stack Error: Not found : @types/express-device
+29 verbose stack     at makeError (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:302:12)
+29 verbose stack     at CachingRegistryClient.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:290:14)
+29 verbose stack     at Request._callback (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:210:14)
+29 verbose stack     at Request.self.callback (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:187:22)
+29 verbose stack     at emitTwo (events.js:106:13)
+29 verbose stack     at Request.emit (events.js:191:7)
+29 verbose stack     at Request.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:1048:10)
+29 verbose stack     at emitOne (events.js:96:13)
+29 verbose stack     at Request.emit (events.js:188:7)
+29 verbose stack     at IncomingMessage.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:969:12)
+30 verbose statusCode 404
+31 verbose pkgid @types/express-device
+32 verbose cwd C:\Users\HP\Desktop\autoMailer\tool
+33 error Windows_NT 10.0.17134
+34 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "@types/express-device"
+35 error node v6.11.4
+36 error npm  v3.10.10
+37 error code E404
+38 error 404 Not found : @types/express-device
+39 error 404
+40 error 404 '@types/express-device' is not in the npm registry.
+41 error 404 You should bug the author to publish it (or use the name yourself!)
+42 error 404 Note that you can also install from a
+43 error 404 tarball, folder, http url, or git url.
+44 verbose exit [ 1, true ]
