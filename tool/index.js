@@ -6,6 +6,7 @@ var fs = require("fs");
 const bodyParser = require("body-parser");
 var url = require("url");
 var validator = require("email-validator");
+var useragent = require('useragent');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 var cookieParser = require("cookie-parser");
@@ -13,6 +14,9 @@ var iplocation = require('iplocation');
 app.use(cookieParser());
 
 var uniqid = require('uniqid');
+
+useragent(true);
+
 
 app.use(cors());
 var device = require("express-device");
@@ -34,6 +38,7 @@ app.get('/hello',function(req,res) {
   var c = req.device.type;
   //console.log(a);
   console.log(req.device);
+  
   res.send(req.ip+"<br><br>"+a+"<br><br><b>Device Name: </b>"+b+"<br><br><b>Device Type: </b>"+c);
   //res.send(req);
 });
@@ -69,7 +74,29 @@ app.get('/insert/:root',function(req,res) {
 })
 
 app.post("/test", function(req, res, next) {
-  console.log(req.body);
+  //console.log(req.body);
+  var ver = req.device.parser.useragent.major+"."+req.device.parser.useragent.minor+"."+req.device.parser.useragent.patch;
+  var agent = useragent.parse(req.headers['user-agent']);
+  var IP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  //var IP = '157.38.234.190';
+  var timezone;
+  var country;
+  //console.log(url.parse("https://www.youtube.com/rahul/rahul").host);
+  iplocation('157.38.234.190', function (error, res) {
+    timezone = res.timezone;
+    country = res.country;
+  });
+  //con.query(`select * from siteid where site_root=`)
+  var sql = `insert into datalog values('','${req.body.url}','${IP}','${req.device.parser.useragent.family}','${ver}','${req.body.date}','${req.body.res}','${agent.os.toString()}','${req.body.ref}','${req.body.S_id}','${req.device.type}','${req.body.time}','${req.device.name}')`;
+    con.query(sql, function (err, result) {
+      if (err) console.log(err.sqlMessage);
+      else console.log("Inserted into datalog!!");
+    });
+    sql = `insert into ipinfo values('${IP}','','')`;
+    con.query(sql, function (err, result) {
+      if (err) console.log(err.sqlMessage);
+      else console.log("Inserted in ip info!!");
+    });
   res.send('abc');
 });
 
