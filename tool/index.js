@@ -1,4 +1,5 @@
 var express = require("express");
+var cors = require('cors');
 var app = express();
 var path = require("path");
 var fs = require("fs");
@@ -8,43 +9,69 @@ var validator = require("email-validator");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 var cookieParser = require("cookie-parser");
+var iplocation = require('iplocation');
 app.use(cookieParser());
-var Base64 = require("js-base64").Base64;
 
-var cre = require("./credential.js");
+var uniqid = require('uniqid');
 
+app.use(cors());
 var device = require("express-device");
-
 var port = process.env.PORT || 3000;
-
 app.listen(port, function() {
   console.log("Server started on port 3000");
 });
-
-app.set("view engine", "ejs");
-app.set("view options", { layout: true });
-app.set("views", __dirname + "/views");
-
 //app.use(express.bodyParser());
 app.use(device.capture({parseUserAgent:true}));
 
 device.enableDeviceHelpers(app);
 device.enableViewRouting(app);
 
+app.use(express.static(path.join(__dirname, "public")));
+
 app.get('/hello',function(req,res) {
-  //console.log(req.device);
-  //var a = req.device.parser.make_sure_parser_was_executed();
   var a = req.device.parser.useragent.source;
   var b = req.device.name;
   var c = req.device.type;
-  //console.log(req.device.name);
-  console.log(a);
+  //console.log(a);
+  console.log(req.device);
   res.send(req.ip+"<br><br>"+a+"<br><br><b>Device Name: </b>"+b+"<br><br><b>Device Type: </b>"+c);
-  //res.json(req.device);
-  //res.send();
+  //res.send(req);
 });
 
-app.use(express.static(path.join(__dirname, "public")));
+app.get('/',function(req,res) {
+  res.send("hello");
+})
+
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "mohit",
+  password: "mohit",
+  database: "webtracker"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+
+app.get('/insert/:root',function(req,res) {
+  var id = uniqid('BB-');
+  console.log(id);
+  var sql = `insert into siteid values('${id}','${req.params.root}')`;
+  con.query(sql, function (err, result) {
+    if (err) console.log(err.sqlMessage);
+    else console.log("Inserted!!");
+  });
+  console.log(uniqid('BB-'));
+  res.send("inserted!!");
+})
+
+app.post("/test", function(req, res, next) {
+  console.log(req.body);
+  res.send('abc');
+});
 
 /*app.get("/", function(req, res) {
   var p = Base64.decode(req.cookies.password);
