@@ -51,8 +51,8 @@ var mysql = require('mysql');
 
 var con = mysql.createConnection({
   host: "localhost",
-  user: "mohit",
-  password: "mohit",
+  user: "root",
+  password: "",
   database: "webtracker"
 });
 
