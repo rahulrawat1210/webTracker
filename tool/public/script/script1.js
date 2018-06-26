@@ -15,6 +15,8 @@ $(document).ready(function() {
           $("#d1").show();
           $("#d2").hide();
           var siteid = $(this).val();
+          $('#exampleModalLongTitle').empty();
+          $('#exampleModalLongTitle').html(`<b>Site Id:</b>`+siteid);
           $.ajax({
             url: '/viewmore',
             type: 'post',
@@ -28,7 +30,7 @@ $(document).ready(function() {
               }else{
                 $("#tb1 tbody").empty();
                 for(var i=0;i<dta.length;i++){
-                  $("#tb1 tbody").append(`<tr><td>${dta[i].site_id}</td><td>${dta[i].ip}</td><td>${dta[i].url}</td><td>${dta[i].browser}</td><td>${dta[i].browser_version}</td><td>${dta[i].date}</td><td>${dta[i].resolution}</td><td>${dta[i].os}</td><td>${dta[i].referrer}</td><td>${dta[i].Device_Type}</td><td>${dta[i].time}</td><td>${dta[i].Device_name}</td></tr>`);
+                  $("#tb1 tbody").append(`<tr><td>${dta[i].ip}</td><td>${dta[i].url}</td><td>${dta[i].browser}</td><td>${dta[i].browser_version}</td><td>${dta[i].date}</td><td>${dta[i].resolution}</td><td>${dta[i].os}</td><td>${dta[i].referrer}</td><td>${dta[i].Device_Type}</td><td>${dta[i].time}</td><td>${dta[i].Device_name}</td></tr>`);
                 }
               }
             },
@@ -39,6 +41,8 @@ $(document).ready(function() {
           $("#d2").show();
           $("#d1").hide();
             var siteid = $(this).text();
+            $('#exampleModalLongTitle').empty();
+            $('#exampleModalLongTitle').html(`<b>Site Id:</b>`+siteid);
             $.ajax({
               url: "/getallip",
               type: "post",
@@ -52,7 +56,7 @@ $(document).ready(function() {
                     }else{
                       $("#tb2 tbody").empty();
                       for(var i=0;i<dta.length;i++){
-                        $("#tb2 tbody").append(`<tr><td>${dta[i].site_id}</td><td>${dta[i].ip}</td><td>${dta[i].view}</td><td><button value="${dta[i].ip}" class="btn btn-danger del">Delete</button></td></tr>`);
+                        $("#tb2 tbody").append(`<tr><td>${dta[i].ip}</td><td>${dta[i].view}</td><td><button value="${dta[i].ip}" class="btn btn-danger del">Delete</button></td></tr>`);
                       }
                       $('.del').click(function(){
                         var ip = $(this).val();
