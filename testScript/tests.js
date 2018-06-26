@@ -108,6 +108,24 @@ function botCheck2 () {
     if (window['document']['documentElement']['getAttribute']('webdriver')) return true;
     if (window['document']['documentElement']['getAttribute']('driver')) return true;
 
+
+        //======================
+       // recheck protocol for phantom.js
+      //============================= =-========= 
+      
+      
+    var global = (function () {
+                return this;
+            })();
+            var phantom = global._phantom;
+            if (!phantom && global.__karma__ && global.frameElement)
+                phantom = global.parent._phantom;
+            var isPhantomxx = !!phantom;
+            if(isPhantomxx)
+            {
+                return true;
+            }
+
     //======================
     //If nothing is found
     //======================    
