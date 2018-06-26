@@ -193,7 +193,7 @@ function botCheck3 () {
 //=========================
 
 function isBot () {
-    var Bot = true;
+    var Bot = 1;
 
     if(!botCheck1()) {
 
@@ -204,7 +204,7 @@ function isBot () {
             if(!botCheck3()) {
 
                 //not a bot
-                Bot = false;
+                Bot = 0;
             }
         }
     }
