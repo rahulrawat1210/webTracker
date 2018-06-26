@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2018 at 02:40 PM
+-- Generation Time: Jun 26, 2018 at 02:00 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -21,6 +21,55 @@ SET time_zone = "+00:00";
 --
 -- Database: `webtracker`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `botdata`
+--
+
+CREATE TABLE `botdata` (
+  `visit_id` mediumint(255) NOT NULL,
+  `url` varchar(300) NOT NULL,
+  `ip` varchar(300) NOT NULL,
+  `browser` varchar(300) NOT NULL,
+  `browser_version` varchar(300) NOT NULL,
+  `date` varchar(300) NOT NULL,
+  `resolution` varchar(300) NOT NULL,
+  `os` varchar(225) NOT NULL,
+  `referrer` varchar(300) NOT NULL,
+  `site_id` varchar(255) NOT NULL,
+  `Device_Type` varchar(300) NOT NULL,
+  `time` varchar(100) NOT NULL,
+  `Device_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `botdata`
+--
+
+INSERT INTO `botdata` (`visit_id`, `url`, `ip`, `browser`, `browser_version`, `date`, `resolution`, `os`, `referrer`, `site_id`, `Device_Type`, `time`, `Device_name`) VALUES
+(1, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '6/26/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', '17:26:26:437', 'Other'),
+(2, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '6/26/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', '17:26:29:719', 'Other');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `botipinfo`
+--
+
+CREATE TABLE `botipinfo` (
+  `ip` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `timezone` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `botipinfo`
+--
+
+INSERT INTO `botipinfo` (`ip`, `country`, `timezone`) VALUES
+('::1', '', '');
 
 -- --------------------------------------------------------
 
@@ -49,21 +98,12 @@ CREATE TABLE `datalog` (
 --
 
 INSERT INTO `datalog` (`visit_id`, `url`, `ip`, `browser`, `browser_version`, `date`, `resolution`, `os`, `referrer`, `site_id`, `Device_Type`, `time`, `Device_name`) VALUES
-(1, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '157.38.234.190', 'Chrome', '67.0.3396', '6/22/2018', '1366 X 728', 'Windows 10.0.0', '', '0', 'desktop', '16:50:5:549', 'Other'),
-(2, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '157.38.234.190', 'Chrome', '67.0.3396', '6/22/2018', '1366 X 728', 'Windows 10.0.0', '', '0', 'desktop', '16:55:48:670', 'Other'),
-(3, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '157.38.234.190', 'Chrome', '67.0.3396', '6/22/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', '16:57:8:13', 'Other'),
-(4, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '157.38.234.190', 'Mobile Safari', '11.0.0', '6/22/2018', '375 X 667', 'iOS 11.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'phone', '16:58:2:861', 'iPhone'),
-(5, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Mobile Safari', '11.0.0', '6/22/2018', '375 X 667', 'iOS 11.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'phone', '16:59:2:445', 'iPhone'),
-(6, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome Mobile', '67.0.3396', '6/22/2018', '411 X 731', 'Android 8.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'phone', '17:25:19:316', 'Pixel 2'),
-(7, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome Mobile', '67.0.3396', '6/22/2018', '411 X 731', 'Android 8.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'phone', '17:26:20:681', 'Pixel 2'),
-(8, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '6/22/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', '17:34:50:90', 'Other'),
-(9, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome Mobile', '67.0.3396', '6/22/2018', '360 X 640', 'Android 5.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'phone', '17:38:14:764', 'Samsung SM-G900P'),
-(10, 'http://192.168.43.43:8080/', '::ffff:192.168.43.240', 'Chrome', '67.0.3396', '6/22/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', '17:45:49:978', 'Other'),
-(11, 'http://192.168.43.43:8080/', '::ffff:192.168.43.240', 'Chrome', '67.0.3396', '6/22/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', '17:45:52:478', 'Other'),
-(12, 'http://192.168.43.43:8080/index.html', '::ffff:192.168.43.1', 'Chrome Mobile', '67.0.3396', '6/22/2018', '360 X 640', 'Android 7.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'phone', '17:46:11:276', 'XiaoMi Redmi Note 4'),
-(13, 'http://192.168.43.43:8080/', '::ffff:192.168.43.161', 'Chrome Mobile', '67.0.3396', '6/22/2018', '424 X 848', 'Android 8.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'phone', '17:46:53:279', 'LLD-AL10'),
-(14, 'http://192.168.43.43:8080/', '::ffff:192.168.43.205', 'Chrome Mobile', '67.0.3396', '6/22/2018', '360 X 640', 'Android 8.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'phone', '17:49:13:441', 'Lenovo K8 Note '),
-(15, 'http://192.168.43.43:8080/', '::ffff:192.168.43.205', 'Chrome Mobile', '67.0.3396', '6/22/2018', '360 X 640', 'Android 8.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'phone', '17:49:47:802', 'Lenovo K8 Note ');
+(1, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '6/26/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', '11:20:3:541', 'Other'),
+(2, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '6/26/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9', 'desktop', '11:20:8:409', 'Other'),
+(3, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '6/26/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjip', 'desktop', '11:20:9:519', 'Other'),
+(4, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '6/26/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', '11:20:9:959', 'Other'),
+(5, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::ffff:192.168.1.4', 'Chrome', '67.0.3396', '6/26/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', '11:43:26:331', 'Other'),
+(8, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '6/26/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', '17:25:6:504', 'Other');
 
 -- --------------------------------------------------------
 
@@ -83,10 +123,8 @@ CREATE TABLE `ipinfo` (
 
 INSERT INTO `ipinfo` (`ip`, `country`, `timezone`) VALUES
 ('::1', '', ''),
-('::ffff:192.168.43.1', '', ''),
-('::ffff:192.168.43.161', '', ''),
-('::ffff:192.168.43.205', '', ''),
-('::ffff:192.168.43.240', '', '');
+('::ffff:192.168.1.11', '', ''),
+('::ffff:192.168.1.4', '', '');
 
 -- --------------------------------------------------------
 
@@ -111,6 +149,19 @@ INSERT INTO `siteid` (`site_id`, `site_root`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `botdata`
+--
+ALTER TABLE `botdata`
+  ADD PRIMARY KEY (`visit_id`);
+
+--
+-- Indexes for table `botipinfo`
+--
+ALTER TABLE `botipinfo`
+  ADD PRIMARY KEY (`ip`),
+  ADD UNIQUE KEY `ip` (`ip`);
 
 --
 -- Indexes for table `datalog`
@@ -138,10 +189,16 @@ ALTER TABLE `siteid`
 --
 
 --
+-- AUTO_INCREMENT for table `botdata`
+--
+ALTER TABLE `botdata`
+  MODIFY `visit_id` mediumint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `datalog`
 --
 ALTER TABLE `datalog`
-  MODIFY `visit_id` mediumint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `visit_id` mediumint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
