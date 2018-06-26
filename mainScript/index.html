@@ -9,7 +9,28 @@
 
 <body>
     <h1>hello</h1>
-    <script src="BB_script.js"></script>
+    <script src = "tests.js"></script>
+    <script async>
+        var isBot = isBot();
+        var id = 'BB-8r9hv7xcjipl9mh6';
+        var date = new Date();
+        var h = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+":"+date.getMilliseconds();
+        var url = window.location.href,
+            date = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear(),
+            reslW = window.screen.availWidth,
+            reslH = window.screen.availHeight,
+            ref = document.referrer,
+            time = h,
+            res = reslW+" X "+reslH;
+        if (window.XMLHttpRequest) {
+            xhttp = new XMLHttpRequest();
+        } else {
+            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xhttp.open("POST", "http://192.168.1.4:3000/test", true);
+        xhttp.setRequestHeader("Content-Type", "application/json;chartset=UTF-8");
+        var data = JSON.stringify({url:url, date: date, res: res, ref: ref, time: time,S_id: id, isBot: isBot});
+        xhttp.send(data);
+    </script>
 </body>
-
 </html>

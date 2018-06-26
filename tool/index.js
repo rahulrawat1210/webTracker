@@ -12,7 +12,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var cookieParser = require("cookie-parser");
 var iplocation = require('iplocation');
 app.use(cookieParser());
-
 var uniqid = require('uniqid');
 
 useragent(true);
@@ -32,21 +31,6 @@ device.enableViewRouting(app);
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get('/hello',function(req,res) {
-  var a = req.device.parser.useragent.source;
-  var b = req.device.name;
-  var c = req.device.type;
-  //console.log(a);
-  console.log(req.device);
-  
-  res.send(req.ip+"<br><br>"+a+"<br><br><b>Device Name: </b>"+b+"<br><br><b>Device Type: </b>"+c);
-  //res.send(req);
-});
-
-app.get('/',function(req,res) {
-  res.send("hello");
-})
-
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
@@ -57,24 +41,67 @@ var con = mysql.createConnection({
 });
 
 con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+  if (err) console.log(err);
+  else console.log("Connected!");
 });
 
-app.get('/insert/:root',function(req,res) {
-  var id = uniqid('BB-');
-  console.log(id);
-  var sql = `insert into siteid values('${id}','${req.params.root}')`;
+app.get('/',function(req,res) {
+  res.send("hello");
+})
+
+app.get('/querytool',function(req,res) {
+  //res.send("View All Data here");
+  res.sendFile(path.join(__dirname, "public/query.html"));
+})
+
+app.get('/viewall',function(req,res) {
+  //res.send("View All Data here");
+  var name = 'hello';
+  res.sendFile(path.join(__dirname, "public/viewAll.html"));
+})
+
+app.post('/viewmore', function(req, res){
+  var sql = `select * from datalog where site_id='${req.body.siteid}'`;
   con.query(sql, function (err, result) {
-    if (err) console.log(err.sqlMessage);
-    else console.log("Inserted!!");
+    if (err){ console.log(err.sqlMessage); res.json({success: false}); }
+    else res.json(result);
   });
-  console.log(uniqid('BB-'));
-  res.send("inserted!!");
+})
+
+app.get('/getalldata',function(req,res) {
+  var sql = `select site_id, count(site_id) as view, visit_id, url, ip, browser, browser_version, date, resolution, os, referrer, device_type, time, device_name from datalog group by site_id order by view desc`;
+    con.query(sql, function (err, result) {
+      if (err){ console.log(err.sqlMessage); res.json({success: false}); }
+      else res.json(result);
+    });
+  //console.log(data);
+  //res.set('Content-Type', 'application/json');
+})
+
+app.post('/deleteentry', function(req, res){
+  //console.log(req.body.ip, req.body.siteid);
+  var sql = `delete from datalog where ip='${req.body.ip}' and site_id='${req.body.siteid}'`;
+  con.query(sql, function(err){
+    if(err){
+      console.log(err.sqlMessage);
+      res.json({success : false});
+    }
+    else res.json({success: true});
+  });
+})
+
+app.post('/getallip',function(req,res) {
+  var sql = `select ip, count(ip) as view, visit_id, url, site_id, browser, browser_version, date, resolution, os, referrer, device_type, time, device_name from datalog where site_id='${req.body.siteid}' group by ip order by view desc`;
+    con.query(sql, function (err, result) {
+      if (err){ console.log(err.sqlMessage); res.json({success: false}); }
+      else res.json(result);
+    });
+  //console.log(data);
+  //res.set('Content-Type', 'application/json');
 })
 
 app.post("/test", function(req, res, next) {
-  //console.log(req.body);
+  console.log(req.body.isBot);
   var ver = req.device.parser.useragent.major+"."+req.device.parser.useragent.minor+"."+req.device.parser.useragent.patch;
   var agent = useragent.parse(req.headers['user-agent']);
   var IP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -99,6 +126,36 @@ app.post("/test", function(req, res, next) {
     });
   res.send('abc');
 });
+
+
+
+
+
+
+// app.get('/insert/:root',function(req,res) {
+//   var id = uniqid('BB-');
+//   console.log(id);
+//   var sql = `insert into siteid values('${id}','${req.params.root}')`;
+//   con.query(sql, function (err, result) {
+//     if (err) console.log(err.sqlMessage);
+//     else console.log("Inserted!!");
+//   });
+//   console.log(uniqid('BB-'));
+//   res.send("inserted!!");
+// })
+
+// app.get('/hello',function(req,res) {
+//   var a = req.device.parser.useragent.source;
+//   var b = req.device.name;
+//   var c = req.device.type;
+//   //console.log(a);
+//   console.log(req.device);
+  
+//   res.send(req.ip+"<br><br>"+a+"<br><br><b>Device Name: </b>"+b+"<br><br><b>Device Type: </b>"+c);
+//   //res.send(req);
+// });
+
+
 
 /*app.get("/", function(req, res) {
   var p = Base64.decode(req.cookies.password);

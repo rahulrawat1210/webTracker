@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>All logs</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>View All Data here</h1>
+        <br>
+        <!-- <button class="btn btn-default" id="bt1">Get Data</button> -->
+        <div class="table-responsive">
+            <table id="tb11" class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Site ID</th>
+                        <th>View</th>
+                        <th>Extra Details</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLongTitle">Modal Title</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive" id="d2">
+                    <table id="tb2" class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Site Id</th>
+                                <td>IP Address</td>
+                                <th>View</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="table-responsive" id="d1">
+                    <table id="tb1" class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Site Id</th>
+                                <td>IP Address</td>
+                                <th>URL</th>
+                                <th>Browser</th>
+                                <th>Browser Version</th>
+                                <th>Date</th>
+                                <th>Resolution</th>
+                                <th>OS</th>
+                                <th>Referrer</th>
+                                <th>Device Type</th>
+                                <th>Time</th>
+                                <th>Device Name</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script src="script/script1.js"></script>
+</body>
+</html>

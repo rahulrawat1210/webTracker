@@ -174,25 +174,31 @@ function botCheck3 () {
 //Running the mainscript
 //=========================
 
-var isBot = true;
+function isBot () {
+    //0 - false, 1 - true
 
-if(!botCheck1()) {
+    var Bot = 1;
 
-    //check 2 if check 1 failed
-    if(!botCheck2()) {
+    if(!botCheck1()) {
 
-        //check 3 if check 2 also failed
-        if(!botCheck3()) {
+        //check 2 if check 1 failed
+        if(!botCheck2()) {
 
-            //not a bot
-            isBot = false;
+            //check 3 if check 2 also failed
+            if(!botCheck3()) {
+
+                //not a bot
+                Bot = 0;
+            }
         }
     }
+
+    return Bot;
 }
 
-if (isBot) {
-    console.log("You are bot! Go away!");
+// if (isBot) {
+//     console.log("You are bot! Go away!");
 
-} else {
-    console.log("You are NOT a BOT! Welcome!");
-}
+// } else {
+//     console.log("You are NOT a BOT! Welcome!");
+// }
