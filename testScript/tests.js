@@ -111,7 +111,9 @@ function botCheck2 () {
 
         //======================
        // recheck protocol for phantom.js
-      //======================    
+      //=============================  
+      
+      
     var global = (function () {
                 return this;
             })();
