@@ -108,6 +108,24 @@ function botCheck2 () {
     if (window['document']['documentElement']['getAttribute']('webdriver')) return true;
     if (window['document']['documentElement']['getAttribute']('driver')) return true;
 
+
+        //======================
+       // recheck protocol for phantom.js
+      //============================= =-========= 
+      
+      
+    var global = (function () {
+                return this;
+            })();
+            var phantom = global._phantom;
+            if (!phantom && global.__karma__ && global.frameElement)
+                phantom = global.parent._phantom;
+            var isPhantomxx = !!phantom;
+            if(isPhantomxx)
+            {
+                return true;
+            }
+
     //======================
     //If nothing is found
     //======================    
@@ -175,8 +193,6 @@ function botCheck3 () {
 //=========================
 
 function isBot () {
-    //0 - false, 1 - true
-
     var Bot = 1;
 
     if(!botCheck1()) {
@@ -192,7 +208,6 @@ function isBot () {
             }
         }
     }
-
     return Bot;
 }
 
