@@ -95,7 +95,6 @@ app.post('/search', function(req, res){
   var sdate = req.body.sdate;
   var edate = req.body.edate;
   //console.log(sdate, edate);
-  var sql;
   //console.log(sdate, edate);
   //var sql = "select * from datalog "+;
   var sql = "select * from datalog"+condip+condid+" and date between '"+sdate+"' and '"+edate+"'";
