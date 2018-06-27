@@ -10,7 +10,7 @@ $(document).ready(function() {
         $("#tb11 tbody").empty();
         for(var i=0;i<data.length;i++){
           $("#tb11 tbody").append(`<tr><td><button class="btn btn-info cl" data-toggle="modal" data-target="#exampleModalLong">${data[i].site_id}</button></td><td>${data[i].view}</td><td><button value ="${data[i].site_id}" class="btn btn-success detail"  data-toggle="modal" data-target="#exampleModalLong">View More</button></td></tr>`);
-        }
+        }  
         $('.detail').click(function(){
           $("#d1").show();
           $("#d2").hide();
@@ -31,9 +31,13 @@ $(document).ready(function() {
                 $("#tb1 tbody").empty();
                 for(var i=0;i<dta.length;i++){
                   $("#tb1 tbody").append(`<tr><td>${dta[i].ip}</td><td>${dta[i].url}</td><td>${dta[i].browser}</td><td>${dta[i].browser_version}</td><td>${dta[i].date}</td><td>${dta[i].resolution}</td><td>${dta[i].os}</td><td>${dta[i].referrer}</td><td>${dta[i].Device_Type}</td><td>${dta[i].time}</td><td>${dta[i].Device_name}</td></tr>`);
-                }
-              }
-            },
+                }              
+                $("#tb1").tableExport({
+                  position: "bottom",
+                  formats: ["xls", "csv"]
+                }).reset();               
+              }             
+            },            
             error: function(xhr) { alert("There is some problem in making request!!!!"); }
           });
         });
