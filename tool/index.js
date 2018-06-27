@@ -14,6 +14,8 @@ var iplocation = require('iplocation');
 app.use(cookieParser());
 var uniqid = require('uniqid');
 
+var cre = require('./credential.js');
+
 useragent(true);
 
 
@@ -34,14 +36,14 @@ app.use(express.static(path.join(__dirname, "public")));
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "webtracker"
+  host: cre.hostName,
+  user: cre.dbUser,
+  password: cre.bdPass,
+  database: cre.dbName
 });
 
 con.connect(function(err) {
-  if (err) console.log(err);
+  if (err) console.log("Problem in connection to db!!!!");
   else console.log("Connected!");
 });
 
@@ -86,6 +88,28 @@ app.post('/deleteentry', function(req, res){
   });
 })
 
+app.post('/search', function(req, res){
+  console.log('search request..');
+  var condip = (req.body.ip=='')?" where":" where ip='"+req.body.ip+"' and";
+  var condid = (req.body.siteid=='')?" 1=1":" site_id='"+req.body.siteid+"'";
+  var sdate = req.body.sdate;
+  var edate = req.body.edate;
+  //console.log(sdate, edate);
+  var sql;
+  //console.log(sdate, edate);
+  //var sql = "select * from datalog "+;
+  var sql = "select * from datalog"+condip+condid+" and date between '"+sdate+"' and '"+edate+"'";
+  //console.log(sql);
+  con.query(sql, function(err, result){
+    //console.log(result);
+    if(err){
+      console.log(err.sqlMessage);
+      res.json({success : false});
+    }
+    else res.json(result);
+  });
+})
+
 app.post('/getallip',function(req,res) {
   var sql = `select ip, count(ip) as view, visit_id, url, site_id, browser, browser_version, date, resolution, os, referrer, device_type, time, device_name from datalog where site_id='${req.body.siteid}' group by ip order by view desc`;
     con.query(sql, function (err, result) {
@@ -105,10 +129,11 @@ app.post("/test", function(req, res, next) {
   //var IP = '157.38.234.190';
   var timezone;
   var country;
-  iplocation('157.38.234.190', function (error, res) {
-    timezone = res.timezone;
-    country = res.country;
-  });
+  // iplocation('157.38.234.190', function (error, res) {
+
+  //   timezone = res.timezone;
+  //   country = res.country;
+  // });
   var sql = `insert into ${tname[botInt]} values('','${req.body.url}','${IP}','${req.device.parser.useragent.family}','${ver}','${req.body.date}','${req.body.res}','${agent.os.toString()}','${req.body.ref}','${req.body.S_id}','${req.device.type}','${req.body.time}','${req.device.name}')`;
     con.query(sql, function (err, result) {
       if (err) console.log(err.sqlMessage);
