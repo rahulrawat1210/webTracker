@@ -10,16 +10,16 @@ $(document).ready(function() {
         var sdate = $('#sdate').val();
         var edate = $('#edate').val();
         var ip = $('#ip').val();
-        if(sdate=='') sdate = '1/1/1990';
-        if(edate==''){
+        if (sdate == '') sdate = '1/1/1990';
+        if (edate == '') {
             var date = new Date();
-            edate = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
+            edate = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
         }
         $.ajax({
             type: "POST",
             url: '/search',
             data: { siteid: siteid, sdate: sdate, edate: edate, ip: ip },
-        success: function (res) { if(res.success==false){ $('#d1').hide(); $('#tb1 tbody').empty(); alert("Error in db!!!");}
+                    success: function (res) { if(res.success==false){ $('#d1').hide(); $('#tb1 tbody').empty(); alert("Error in db!!!");}
                                     else if(res.length==0){ $('#d1').hide(); $('#tb1 tbody').empty(); alert('No data found!!!');}
                                     else{  $('#d1').show();
                                             $('#tb1 tbody').empty();

@@ -92,7 +92,6 @@ app.post('/search', function(req, res){
   var condid = (req.body.siteid=='')?" 1=1":" site_id='"+req.body.siteid+"'";
   var sdate = req.body.sdate;
   var edate = req.body.edate;
-  var sql;
   var sql = "select * from datalog"+condip+condid+" and date between '"+sdate+"' and '"+edate+"'";
   con.query(sql, function(err, result){
     if(err){
