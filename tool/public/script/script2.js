@@ -45,11 +45,4 @@ $(document).ready(function() {
         });
         e.preventDefault();
     });
-    $('#update').click(function(){
-        $.get("/getalldata", function(data, status) {
-            if(data.success==false){
-                alert("There is some error in db!!!");
-            }
-        });
-    });
 });

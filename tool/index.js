@@ -13,8 +13,10 @@ var cookieParser = require("cookie-parser");
 var iplocation = require('iplocation');
 app.use(cookieParser());
 var uniqid = require('uniqid');
-
+var request = require('request');
 var cre = require('./credential.js');
+const requestIp = require('request-ip');
+app.use(requestIp.mw());
 
 useragent(true);
 
@@ -48,7 +50,7 @@ con.connect(function(err) {
 });
 
 app.get('/',function(req,res) {
-  res.send("hello");
+  res.send("hello frands...");
 })
 
 app.get('/querytool',function(req,res) {
@@ -102,8 +104,58 @@ app.post('/search', function(req, res){
   });
 })
 
-app.get('/ip', function(req, res){
-  res.send(req.ip);
+app.post('/fillipdata', function(req, res){
+  var sql = `select * from ipinfo where ip='${req.body.ip}'`;
+    con.query(sql, function (err, result) {
+      if (err){
+        console.log(err.sqlMessage);
+        res.json({success: false, err: 'Error in runnig the query!!!'});
+      }
+      else{
+          if(result.length==0){
+            res.json({success: false, err: 'No data found With this ip!!!'});
+          }
+          else{
+            if(result[0].country==''||result[0].timezone==''){
+              var ip = req.body.ip;
+              var country, timezone;
+              var url = `http://ip-api.com/json/${ip}`;
+              request.get({
+                url: url,
+                json: true,
+                headers: {'User-Agent': 'request'}
+              }, (error, ress, data) => {
+                if (error) {
+                  console.log('Error:', error);
+                  res.json({success: false, err: 'Problem in Geo Location API!!!'});
+                } else if (res.statusCode !== 200) {
+                  console.log('Status:', res.statusCode);
+                  res.json({success: false, err: 'No data Found!!!!'});
+                } else {
+                  if(data.status=='fail'){
+                    res.json({success: false, err: "Invalid IP "+data.query});
+                  }
+                  else{
+                    country = data.country;
+                    timezone = data.timezone;
+                    var sql = `update ipinfo set country='${country}', timezone='${timezone}' where ip='${req.body.ip}'`;
+                    con.query(sql, function (err) {
+                      if (err){
+                        console.log(err.sqlMessage);
+                        res.json({success: false, err: 'Unable to update data in db!!!'});
+                      }
+                      else res.json({country: country, timezone: timezone});
+                    });
+                  }
+                }
+              });
+            }
+            else{
+              res.json({country: result[0].country, timezone: result[0].timezone});
+            }
+          }
+      }
+    });
 })
 
 app.post('/getallip',function(req,res) {
@@ -114,18 +166,17 @@ app.post('/getallip',function(req,res) {
     });
 })
 
-app.post("/test", function(req, res, next) {
+app.post("/insertlog", function(req, res, next) {
   var tname = ['datalog', 'botdata'];
   var bottname = ['ipinfo', 'botipinfo'];
   var botInt = req.body.isBot;
   var ver = req.device.parser.useragent.major+"."+req.device.parser.useragent.minor+"."+req.device.parser.useragent.patch;
   var agent = useragent.parse(req.headers['user-agent']);
-  var IP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-  //var IP = '157.38.234.190';
+  //var IP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  const IP = req.clientIp;
   var timezone;
   var country;
   // iplocation('157.38.234.190', function (error, res) {
-
   //   timezone = res.timezone;
   //   country = res.country;
   // });
