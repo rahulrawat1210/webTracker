@@ -15,7 +15,6 @@ $(document).ready(function() {
             var date = new Date();
             edate = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
         }
-        console.log(sdate, edate);
         $.ajax({
             type: "POST",
             url: '/search',
@@ -24,10 +23,19 @@ $(document).ready(function() {
                                     else if(res.length==0){ $('#d1').hide(); $('#tb1 tbody').empty(); alert('No data found!!!');}
                                     else{  $('#d1').show();
                                             $('#tb1 tbody').empty();
-                                            for(var i=0;i<res.length;i++){
-                                                $('#tb1').append(`<tr><td>${res[i].site_id}</td><td>${res[i].url}</td><td>${res[i].ip}</td><td>${res[i].browser}</td><td>${res[i].browser_version}</td><td>${res[i].date}</td><td>${res[i].resolution}</td><td>${res[i].os}</td><td>${res[i].referrer}</td><td>${res[i].Device_Type}</td><td>${res[i].time}</td><td>${res[i].Device_name}</td></tr>`);
-                                            }
-                                            $('#tb1').DataTable();
+                                            var oTable = $('#tb1').dataTable({
+                                                retrieve: true,
+                                                dom: 'Bfrtip',
+                                                buttons: [
+                                                    'copyHtml5',
+                                                    'excelHtml5',
+                                                    'csvHtml5',
+                                                ]
+                                            });
+                                            oTable.fnClearTable();
+                                            $.each(res, function (key, item) {
+                                                oTable.fnAddData([item.site_id, item.url, item.ip, item.browser, item.browser_version, item.date, item.resolution, item.os, item.referrer, item.Device_Type, item.time, item.Device_name]);
+                                            });
                                     }
                                 },
         dataType: "json",
@@ -36,5 +44,12 @@ $(document).ready(function() {
             }
         });
         e.preventDefault();
+    });
+    $('#update').click(function(){
+        $.get("/getalldata", function(data, status) {
+            if(data.success==false){
+                alert("There is some error in db!!!");
+            }
+        });
     });
 });

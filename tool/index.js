@@ -77,7 +77,6 @@ app.get('/getalldata',function(req,res) {
 })
 
 app.post('/deleteentry', function(req, res){
-  //console.log(req.body.ip, req.body.siteid);
   var sql = `delete from datalog where ip='${req.body.ip}' and site_id='${req.body.siteid}'`;
   con.query(sql, function(err){
     if(err){
@@ -89,25 +88,23 @@ app.post('/deleteentry', function(req, res){
 })
 
 app.post('/search', function(req, res){
-  console.log('search request..');
   var condip = (req.body.ip=='')?" where":" where ip='"+req.body.ip+"' and";
   var condid = (req.body.siteid=='')?" 1=1":" site_id='"+req.body.siteid+"'";
   var sdate = req.body.sdate;
   var edate = req.body.edate;
-  //console.log(sdate, edate);
   var sql;
-  //console.log(sdate, edate);
-  //var sql = "select * from datalog "+;
   var sql = "select * from datalog"+condip+condid+" and date between '"+sdate+"' and '"+edate+"'";
-  //console.log(sql);
   con.query(sql, function(err, result){
-    //console.log(result);
     if(err){
       console.log(err.sqlMessage);
       res.json({success : false});
     }
     else res.json(result);
   });
+})
+
+app.get('/ip', function(req, res){
+  res.send(req.ip);
 })
 
 app.post('/getallip',function(req,res) {
@@ -119,7 +116,6 @@ app.post('/getallip',function(req,res) {
 })
 
 app.post("/test", function(req, res, next) {
-  //console.log(req.body);
   var tname = ['datalog', 'botdata'];
   var bottname = ['ipinfo', 'botipinfo'];
   var botInt = req.body.isBot;

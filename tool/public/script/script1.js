@@ -8,9 +8,13 @@ $(document).ready(function() {
       } else {
         $("#d11").show();
         $("#tb11 tbody").empty();
-        for(var i=0;i<data.length;i++){
-          $("#tb11 tbody").append(`<tr><td><button class="btn btn-info cl" data-toggle="modal" data-target="#exampleModalLong">${data[i].site_id}</button></td><td>${data[i].view}</td><td><button value ="${data[i].site_id}" class="btn btn-success detail"  data-toggle="modal" data-target="#exampleModalLong">View More</button></td></tr>`);
-        }  
+        var oTable11 = $('#tb11').dataTable({
+            retrieve: true
+        });
+        oTable11.fnClearTable();
+        $.each(data, function (key, item) {
+            oTable11.fnAddData([`<button class="btn btn-info cl" data-toggle="modal" data-target="#exampleModalLong">${item.site_id}</button>`, `${item.view}`, `<button value ="${item.site_id}" class="btn btn-success detail"  data-toggle="modal" data-target="#exampleModalLong">View More</button>`]);
+        });
         $('.detail').click(function(){
           $("#d1").show();
           $("#d2").hide();
@@ -29,15 +33,21 @@ $(document).ready(function() {
                 alert("Problem in DB!!");
               }else{
                 $("#tb1 tbody").empty();
-                for(var i=0;i<dta.length;i++){
-                  $("#tb1 tbody").append(`<tr><td>${dta[i].ip}</td><td>${dta[i].url}</td><td>${dta[i].browser}</td><td>${dta[i].browser_version}</td><td>${dta[i].date}</td><td>${dta[i].resolution}</td><td>${dta[i].os}</td><td>${dta[i].referrer}</td><td>${dta[i].Device_Type}</td><td>${dta[i].time}</td><td>${dta[i].Device_name}</td></tr>`);
-                }              
-                $("#tb1").tableExport({
-                  position: "bottom",
-                  formats: ["xls", "csv"]
-                }).reset();               
-              }             
-            },            
+                var oTable1 = $('#tb1').dataTable({
+                    retrieve: true,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                    ]
+                });
+                oTable1.fnClearTable();
+                $.each(dta, function (key, item) {
+                    oTable1.fnAddData([`${item.ip}`, `${item.url}`, `${item.browser}`, `${item.browser_version}`, `${item.date}`, `${item.resolution}`, `${item.os}`, `${item.referrer}`, `${item.Device_Type}`, `${item.time}`, `${item.Device_name}`]);
+                });
+              }
+            },
             error: function(xhr) { alert("There is some problem in making request!!!!"); }
           });
         });
@@ -54,14 +64,18 @@ $(document).ready(function() {
                 siteid : siteid
               },
               dataType : 'json',
-              success: function(dta) {
-                if(dta.success==false){
+              success: function(dt) {
+                if(dt.success==false){
                       alert("Problem in DB!!");
                     }else{
                       $("#tb2 tbody").empty();
-                      for(var i=0;i<dta.length;i++){
-                        $("#tb2 tbody").append(`<tr><td>${dta[i].ip}</td><td>${dta[i].view}</td><td><button value="${dta[i].ip}" class="btn btn-danger del">Delete</button></td></tr>`);
-                      }
+                      var oTable2 = $('#tb2').dataTable({
+                          retrieve: true
+                      });
+                      oTable2.fnClearTable();
+                      $.each(dt, function (key, item) {
+                          oTable2.fnAddData([`${item.ip}`, `${item.view}`, `<button value="${item.ip}" class="btn btn-danger del">Delete</button>`]);
+                      });
                       $('.del').click(function(){
                         var ip = $(this).val();
                         $.ajax({
