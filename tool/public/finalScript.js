@@ -243,15 +243,13 @@ function isBot () {
 var isBot = isBot();
         var date = new Date();
         var h = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+":"+date.getMilliseconds();
-        var mon = date.getMonth()+1;
         var url = window.location.href,
-            date = mon+"/"+date.getDate()+"/"+date.getFullYear(),
+            date = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear(),
             reslW = window.screen.availWidth,
             reslH = window.screen.availHeight,
             ref = document.referrer,
             time = h,
             res = reslW+" X "+reslH;
-            console.log(date);
         if (window.XMLHttpRequest) {
             xhttp = new XMLHttpRequest();
         } else {
