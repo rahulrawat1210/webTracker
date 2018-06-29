@@ -3,10 +3,6 @@
 //Level 1 check - for known bots
 //================================
 
-console.log(navigator.userAgent);
-h1 = document.querySelector('h1');
-var message = "you are a bot";
-
 function botCheck1 () {
     
     //for testing purposes
@@ -162,40 +158,38 @@ function botCheck3 () {
     //Checking if Mobile Browser because plugins are not supported in mobile environment.
     //======================================================================================
         
-    // var isMobile = false;
+    var isMobile = false;
     
-    // var platform = navigator.userAgent.toLowerCase().match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
+    var platform = navigator.userAgent.toLowerCase().match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
     
-    // console.log(platform);
+    console.log(platform);
 
-    // if(platform != null && platform.length !== 0 ) {
-    //   isMobile = true;
+    if(platform != null && platform.length !== 0 ) {
+      isMobile = true;
 
-    // } else {
-    //     console.log("not mobile browser!");
-    // }
+    } else {
+        console.log("not mobile browser!");
+    }
 
     //======================================================================================
     //If the browser is not in mobile environment yet has 0 plugins then it is a bot
     //======================================================================================
 
-    // console.log(navigator.plugins);
-    // if(!isMobile && navigator.plugins.length === 0) {
-    //     //Bot detected!
-    //     return true;
+    console.log(navigator.plugins);
+    if(!isMobile && navigator.plugins.length === 0) {
 
-    // } else {
-    //     console.log("plugins check passed!");
-    // }
+        if(navigator.languages.length === 0) {
+            console.log("you are a bot");
+            return true;
+        }    
+
+    } else {
+        console.log("plugins and language check passed!");
+    }
 
     //======================================================================================
     //naviagtor.webdriver is only available in Chromium if used for bot making
     //======================================================================================
-
-    if(navigator.languages.length === 0) {
-        console.log("you are a bot");
-        return true;
-    }
     
     if(navigator.webdriver) {
         //Chrome Headless Detected
@@ -229,19 +223,11 @@ function isBot () {
 
                 //not a bot
                 Bot = 0;
-                message = "you are not a bot!"
             }
         }
     }
-    h1.innerText += message;
+
     return Bot;
 }
 
 console.log(isBot());
-
-// if (isBot) {
-//     console.log("You are bot! Go away!");
-
-// } else {
-//     console.log("You are NOT a BOT! Welcome!");
-// }
