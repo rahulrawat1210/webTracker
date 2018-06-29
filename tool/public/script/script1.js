@@ -20,7 +20,7 @@ $(document).ready(function() {
           $("#d2").hide();
           var siteid = $(this).val();
           $('#exampleModalLongTitle').empty();
-          $('#exampleModalLongTitle').html(`<b>Site Id:</b>`+siteid);
+          $('#exampleModalLongTitle').html(`<b>Site Id: </b>`+siteid);
           $.ajax({
             url: '/viewmore',
             type: 'post',
@@ -37,14 +37,52 @@ $(document).ready(function() {
                     retrieve: true,
                     dom: 'Bfrtip',
                     buttons: [
-                        'copyHtml5',
-                        'excelHtml5',
-                        'csvHtml5',
+                      {
+                        extend: 'copyHtml5'
+                      },
+                      {
+                          extend: 'excelHtml5',
+                          title: siteid
+                      },
+                      {
+                          extend: 'csvHtml5',
+                          title: siteid
+                      }
                     ]
                 });
                 oTable1.fnClearTable();
                 $.each(dta, function (key, item) {
-                    oTable1.fnAddData([`${item.ip}`, `${item.url}`, `${item.browser}`, `${item.browser_version}`, `${item.date}`, `${item.resolution}`, `${item.os}`, `${item.referrer}`, `${item.Device_Type}`, `${item.time}`, `${item.Device_name}`]);
+                    oTable1.fnAddData([`${item.ip}`, `<button class="btn btn-info geo" data-toggle="modal" href="#exampleModalLong1" value='${item.ip}'>Get It</button>`, `${item.url}`, `${item.browser}`, `${item.browser_version}`, `${item.date}`, `${item.resolution}`, `${item.os}`, `${item.referrer}`, `${item.Device_Type}`, `${item.time}`, `${item.Device_name}`]);
+                });
+                $('.geo').click(function(){
+                  var ip = $(this).val();
+                  $('#exampleModalLongTitle1').empty();
+                  $('#exampleModalLongTitle1').html(`<b>IP Address: </b>`+ip);
+                  $.ajax({
+                    url: "/fillipdata",
+                    type: "post",
+                    data: {
+                      ip: ip
+                    },
+                    dataType : 'json',
+                    success: function(data){
+                          if(data.success==false){
+                            $('#tb3 tbody').empty();
+                            $('#d3').hide();
+                            $('#abc').show();
+                            $('#abc').empty();
+                            $('#abc').html(`<h3>${data.err}</h3>`);
+                          }
+                          else{
+                            $('#d3').show();
+                            $('#abc').hide();
+                            console.log(data.country+", "+ data.timezone);
+                            $('#tb3 tbody').empty();
+                            $('#tb3 tbody').append(`<tr><td>${data.country}</td><td>${data.timezone}</td></tr>`);
+                          }
+                    },
+                    error: function(xhr) { alert("There is some problem in making request!!!!"); }
+                  });
                 });
               }
             },
@@ -56,7 +94,7 @@ $(document).ready(function() {
           $("#d1").hide();
             var siteid = $(this).text();
             $('#exampleModalLongTitle').empty();
-            $('#exampleModalLongTitle').html(`<b>Site Id:</b>`+siteid);
+            $('#exampleModalLongTitle').html(`<b>Site Id: </b>`+siteid);
             $.ajax({
               url: "/getallip",
               type: "post",

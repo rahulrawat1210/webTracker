@@ -27,8 +27,7 @@
         } else {
             xhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        //xhttp.open("POST", "http://192.168.1.4:3000/test", true);
-        xhttp.open("POST", "http://localhost:3000/test", true);
+        xhttp.open("POST", "http://localhost:3000/insertlog", true);
         xhttp.setRequestHeader("Content-Type", "application/json;chartset=UTF-8");
         var data = JSON.stringify({url:url, date: date, res: res, ref: ref, time: time,S_id: id, isBot: isBot});
         xhttp.send(data);
