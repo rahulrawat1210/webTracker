@@ -175,12 +175,12 @@ app.post("/insertlog", function(req, res, next) {
   var ver = req.device.parser.useragent.major+"."+req.device.parser.useragent.minor+"."+req.device.parser.useragent.patch;
   var agent = useragent.parse(req.headers['user-agent']);
   const IP = req.clientIp;
-  var sql = `insert into ${tname[botInt]} values('','${req.body.url}','${IP}','${req.device.parser.useragent.family}','${ver}','${req.body.date}','${req.body.res}','${agent.os.toString()}','${req.body.ref}','${req.body.S_id}','${req.device.type}','${req.body.time}','${req.device.name}')`;
+  var sql = `insert into ${tname[botInt]} (url, ip, browser, browser_version, date, resolution, os, referrer, site_id, Device_Type, time, Device_name) values('${req.body.url}','${IP}','${req.device.parser.useragent.family}','${ver}','${req.body.date}','${req.body.ress}','${agent.os.toString()}','${req.body.ref}','${req.body.S_id}','${req.device.type}','${req.body.time}','${req.device.name}')`;
     con.query(sql, function (err, result) {
       if (err) console.log(err.sqlMessage);
       else console.log("Inserted into datalog!!");
     });
-    sql = `insert into ${bottname[botInt]} values('${IP}','','')`;
+    sql = `insert into ${bottname[botInt]} (ip) values('${IP}')`;
     con.query(sql, function (err, result) {
       if (err) console.log(err.sqlMessage);
       else console.log("Inserted in ip info!!");
