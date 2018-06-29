@@ -5,6 +5,9 @@ $(document).ready(function() {
         orientation: 'left top',
         autoclose: true
     });
+    // $("#search").click(function() {
+        
+    // });
     $("#sform").submit(function(e) {
         var siteid = $('#siteid').val();
         var sdate = $('#sdate').val();
@@ -45,5 +48,8 @@ $(document).ready(function() {
             }
         });
         e.preventDefault();
+        $('html,body').animate({
+            scrollTop: $("#scl").offset().top},
+            'slow');
     });
 });
