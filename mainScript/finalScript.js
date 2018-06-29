@@ -249,7 +249,11 @@ var isBot = isBot();
             reslH = window.screen.availHeight,
             ref = document.referrer,
             time = h,
-            res = reslW+" X "+reslH;
+            res = reslW + " X " + reslH;
+            if (ref == '')
+            {
+                ref = "DIRECT HIT!!";
+                }
         if (window.XMLHttpRequest) {
             xhttp = new XMLHttpRequest();
         } else {

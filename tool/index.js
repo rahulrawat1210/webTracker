@@ -120,7 +120,7 @@ app.post('/fillipdata', function(req, res){
           else{
             if(result[0].country==''||result[0].timezone==''){
               var ip = req.body.ip;
-              var country, timezone;
+              var country, timezone,isp,city,latitude,longitude,zip;
               var url = `http://ip-api.com/json/${ip}`;
               request.get({
                 url: url,
@@ -139,21 +139,28 @@ app.post('/fillipdata', function(req, res){
                   }
                   else{
                     country = data.country;
-                    timezone = data.timezone;
-                    var sql = `update ipinfo set country='${country}', timezone='${timezone}' where ip='${req.body.ip}'`;
+                      timezone = data.timezone;
+                      isp = data.as;
+                      city = data.city;
+                      latitude = data.lat;
+                      longitude = data.lon;
+                      zip = data.zip;
+                      //console.log(data);
+                      
+                    var sql = `update ipinfo set country='${country}', timezone='${timezone}',isp='${isp}',city='${city}',latitude='${latitude}',longitude='${longitude}',zip='${zip}' where ip='${req.body.ip}'`;
                     con.query(sql, function (err) {
                       if (err){
                         console.log(err.sqlMessage);
                         res.json({success: false, err: 'Unable to update data in db!!!'});
                       }
-                      else res.json({country: country, timezone: timezone});
+                      else res.json({country: country, timezone: timezone, isp:isp,city: city,latitude: latitude,longitude: longitude,zip: zip});
                     });
                   }
                 }
               });
             }
             else{
-              res.json({country: result[0].country, timezone: result[0].timezone});
+              res.json({country: result[0].country, timezone: result[0].timezone,isp: result[0].isp,city:result[0].city, latitude: result[0].latitude,longitude: result[0].longitude,zip: result[0].zip});
             }
           }
       }
@@ -180,7 +187,7 @@ app.post("/insertlog", function(req, res, next) {
       if (err) console.log(err.sqlMessage);
       else console.log("Inserted into datalog!!");
     });
-    sql = `insert into ${bottname[botInt]} (ip, country, timezone) values('${IP}', '', '')`;
+    sql = `insert into ${bottname[botInt]} (ip, country, timezone,isp,city,latitude,longitude,zip) values('${IP}', '', '','','','','','')`;
     con.query(sql, function (err, result) {
       if (err) console.log(err.sqlMessage);
       else console.log("Inserted in ip info!!");

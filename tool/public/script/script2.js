@@ -1,11 +1,11 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $('#d1').hide();
     $('.datepicker').datepicker({
         format: 'm/d/yyyy',
         orientation: 'left top',
         autoclose: true
     });
-    $("#sform").submit(function(e) {
+    $("#sform").submit(function (e) {
         var siteid = $('#siteid').val();
         var sdate = $('#sdate').val();
         var edate = $('#edate').val();
