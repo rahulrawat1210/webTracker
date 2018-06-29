@@ -1,13 +1,10 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $('#d1').hide();
     $('.datepicker').datepicker({
         format: 'yyyy-m-d',
         orientation: 'left top',
         autoclose: true
     });
-    // $("#search").click(function() {
-        
-    // });
     $("#sform").submit(function(e) {
         var siteid = $('#siteid').val();
         var sdate = $('#sdate').val();
