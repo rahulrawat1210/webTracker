@@ -3,6 +3,8 @@
 //Level 1 check - for known bots
 //================================
 
+console.log(navigator.userAgent);
+
 function botCheck1 () {
     
     //for testing purposes
@@ -82,32 +84,38 @@ function botCheck2 () {
         "_Selenium_IDE_Recorder",
     ];
 
-    for (const windowDetectionKey in windowDetectionKeys) {
-        const windowDetectionKeyValue = windowDetectionKeys[windowDetectionKey];
+    for (var windowDetectionKey in windowDetectionKeys) {
+        var windowDetectionKeyValue = windowDetectionKeys[windowDetectionKey];
         if (window[windowDetectionKeyValue]) {
             return true;
         }
     };
 
-    for (const documentDetectionKey in documentDetectionKeys) {
-        const documentDetectionKeyValue = documentDetectionKeys[documentDetectionKey];
+    for (var documentDetectionKey in documentDetectionKeys) {
+        var documentDetectionKeyValue = documentDetectionKeys[documentDetectionKey];
         if (window['document'][documentDetectionKeyValue]) {
             return true;
         }
     };
 
-    for (const documentKey in window['document']) {
+    for (var documentKey in window['document']) {
         if (documentKey.match(/\$[a-z]dc_/) && window['document'][documentKey]['cache_']) {
             return true;
         }
     }
+    
+    var trident = navigator.userAgent.indexOf('Trident/');
+    
+    if (trident > 0) {
+        //Browser is IE which does not support this check.
 
-    if (window['external'] && window['external'].toString() && (window['external'].toString()['indexOf']('Sequentum') != -1)) return true;
+    } else {
+        if (window['external'] && window['external'].toString() && (window['external'].toString()['indexOf']('Sequentum') != -1)) return true;
 
-    if (window['document']['documentElement']['getAttribute']('selenium')) return true;
-    if (window['document']['documentElement']['getAttribute']('webdriver')) return true;
-    if (window['document']['documentElement']['getAttribute']('driver')) return true;
-
+        if (window['document']['documentElement']['getAttribute']('selenium')) return true;
+        if (window['document']['documentElement']['getAttribute']('webdriver')) return true;
+        if (window['document']['documentElement']['getAttribute']('driver')) return true;
+    }
 
         //======================
        // recheck protocol for phantom.js
