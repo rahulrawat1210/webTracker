@@ -180,7 +180,7 @@ app.post("/insertlog", function(req, res, next) {
       if (err) console.log(err.sqlMessage);
       else console.log("Inserted into datalog!!");
     });
-    sql = `insert into ${bottname[botInt]} (ip) values('${IP}')`;
+    sql = `insert into ${bottname[botInt]} (ip, country, timezone) values('${IP}', '', '')`;
     con.query(sql, function (err, result) {
       if (err) console.log(err.sqlMessage);
       else console.log("Inserted in ip info!!");
