@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('#d1').hide();
     $('.datepicker').datepicker({
-        format: 'm/d/yyyy',
+        format: 'yyyy-m-d',
         orientation: 'left top',
         autoclose: true
     });
@@ -10,10 +10,11 @@ $(document).ready(function () {
         var sdate = $('#sdate').val();
         var edate = $('#edate').val();
         var ip = $('#ip').val();
-        if (sdate == '') sdate = '1/1/1990';
+        if (sdate == '') sdate = '1990-1-1';
         if (edate == '') {
             var date = new Date();
-            edate = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+            var mon = date.getMonth() + 1;
+            edate =  date.getFullYear()+"-"+mon+"-"+date.getDate();
         }
         $.ajax({
             type: "POST",

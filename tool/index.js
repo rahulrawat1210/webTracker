@@ -40,7 +40,8 @@ var con = mysql.createConnection({
   host: cre.hostName,
   user: cre.dbUser,
   password: cre.bdPass,
-  database: cre.dbName
+  database: cre.dbName,
+  dateStrings: true
 });
 con.connect(function(err) {
   if (err) console.log("Problem in connection to db!!!!");
@@ -70,12 +71,15 @@ app.get('/getalldata',function(req,res) {
     });
 })
 
-
 app.post('/viewmore', function(req, res){
   var sql = `select * from datalog where site_id='${req.body.siteid}'`;
   con.query(sql, function (err, result) {
     if (err){ console.log(err.sqlMessage); res.json({success: false}); }
-    else res.json(result);
+    else {
+      //console.log(result[0].date.toSqlString);
+      //console.log(result[0].date);
+      res.json(result);
+    }
   });
 })
 
@@ -182,7 +186,8 @@ app.post("/insertlog", function(req, res, next) {
   var ver = req.device.parser.useragent.major+"."+req.device.parser.useragent.minor+"."+req.device.parser.useragent.patch;
   var agent = useragent.parse(req.headers['user-agent']);
   const IP = req.clientIp;
-  var sql = `insert into ${tname[botInt]} (url, ip, browser, browser_version, date, resolution, os, referrer, site_id, Device_Type, time, Device_name) values('${req.body.url}','${IP}','${req.device.parser.useragent.family}','${ver}','${req.body.date}','${req.body.ress}','${agent.os.toString()}','${req.body.ref}','${req.body.S_id}','${req.device.type}','${req.body.time}','${req.device.name}')`;
+  //console.log(convert(date,req.body.date,102));
+  var sql = `insert into ${tname[botInt]} (url, ip, browser, browser_version, date, resolution, os, referrer, site_id, Device_Type, time, Device_name) values('${req.body.url}','${IP}','${req.device.parser.useragent.family}','${ver}',STR_TO_DATE('${req.body.date}', '%m/%d/%Y'),'${req.body.ress}','${agent.os.toString()}','${req.body.ref}','${req.body.S_id}','${req.device.type}','${req.body.time}','${req.device.name}')`;
     con.query(sql, function (err, result) {
       if (err) console.log(err.sqlMessage);
       else console.log("Inserted into datalog!!");
