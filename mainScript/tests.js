@@ -149,6 +149,9 @@ function botCheck3 () {
     if (window.outerWidth === 0 && window.outerHeight === 0) { 
         //headless browser
         return true;
+
+    } else {
+        console.log("widht and height check passed!");
     }
 
     //======================================================================================
@@ -159,26 +162,41 @@ function botCheck3 () {
     
     var platform = navigator.userAgent.toLowerCase().match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
     
-    if(platform !== null && platform.length !== 0 ) {
+    console.log(platform);
+
+    if(platform != null && platform.length !== 0 ) {
       isMobile = true;
+
+    } else {
+        console.log("not mobile browser!");
     }
 
     //======================================================================================
     //If the browser is not in mobile environment yet has 0 plugins then it is a bot
     //======================================================================================
 
+    console.log(navigator.plugins);
     if(!isMobile && navigator.plugins.length === 0) {
-        //Bot detected!
-        return true;
+
+        if(navigator.languages.length === 0) {
+            console.log("you are a bot");
+            return true;
+        }    
+
+    } else {
+        console.log("plugins and language check passed!");
     }
 
     //======================================================================================
     //naviagtor.webdriver is only available in Chromium if used for bot making
     //======================================================================================
-
+    
     if(navigator.webdriver) {
         //Chrome Headless Detected
         return true;
+
+    } else {
+        console.log("webdriver check passed!");
     }
 
     //=====================
@@ -208,12 +226,8 @@ function isBot () {
             }
         }
     }
+
     return Bot;
 }
 
-// if (isBot) {
-//     console.log("You are bot! Go away!");
-
-// } else {
-//     console.log("You are NOT a BOT! Welcome!");
-// }
+console.log(isBot());
