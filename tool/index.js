@@ -149,8 +149,6 @@ app.post('/fillipdata', function(req, res){
                       latitude = data.lat;
                       longitude = data.lon;
                       zip = data.zip;
-                      //console.log(data);
-                      
                     var sql = `update ipinfo set country='${country}', timezone='${timezone}',isp='${isp}',city='${city}',latitude='${latitude}',longitude='${longitude}',zip='${zip}' where ip='${req.body.ip}'`;
                     con.query(sql, function (err) {
                       if (err){
@@ -186,7 +184,6 @@ app.post("/insertlog", function(req, res, next) {
   var ver = req.device.parser.useragent.major+"."+req.device.parser.useragent.minor+"."+req.device.parser.useragent.patch;
   var agent = useragent.parse(req.headers['user-agent']);
   const IP = req.clientIp;
-  //console.log(convert(date,req.body.date,102));
   var sql = `insert into ${tname[botInt]} (url, ip, browser, browser_version, date, resolution, os, referrer, site_id, Device_Type, time, Device_name) values('${req.body.url}','${IP}','${req.device.parser.useragent.family}','${ver}',STR_TO_DATE('${req.body.date}', '%m/%d/%Y'),'${req.body.ress}','${agent.os.toString()}','${req.body.ref}','${req.body.S_id}','${req.device.type}','${req.body.time}','${req.device.name}')`;
     con.query(sql, function (err, result) {
       if (err) console.log(err.sqlMessage);

@@ -76,8 +76,6 @@ $(document).ready(function() {
                           else{
                             $('#d3').show();
                             $('#abc').hide();
-                            console.log(data.country + ", " + data.timezone);
-                            //console.log(data);
                             $('#tb3 tbody').empty();
                             $('#tb3 tbody').append(`<tr><td>${data.country}</td><td>${data.timezone}</td><td>${data.isp}</td><td>${data.city}</td><td>${data.latitude}</td><td>${data.longitude}</td><td>${data.zip}</td></tr>`);
                           }
