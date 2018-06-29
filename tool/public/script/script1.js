@@ -13,7 +13,7 @@ $(document).ready(function() {
         });
         oTable11.fnClearTable();
         $.each(data, function (key, item) {
-            oTable11.fnAddData([`<button class="btn btn-info cl" data-toggle="modal" data-target="#exampleModalLong">${item.site_id}</button>`, `${item.view}`, `<button value ="${item.site_id}" class="btn btn-success detail"  data-toggle="modal" data-target="#exampleModalLong">View More</button>`]);
+            oTable11.fnAddData([`<button class=" btn-block btn btn-info cl" data-toggle="modal" data-target="#exampleModalLong">${item.site_id}</button>`, `${item.view}`, `<button value ="${item.site_id}" class=" btn btn-success detail"  data-toggle="modal" data-target="#exampleModalLong">View More</button>`]);
         });
         $('.detail').click(function(){
           $("#d1").show();
