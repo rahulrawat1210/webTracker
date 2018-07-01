@@ -2,6 +2,9 @@ $(document).ready(function() {
   var Data;
   $("#d1").hide();
   $("#d2").hide();
+  $(document).find('#exampleModalLong1').on('hidden.bs.modal', function () {
+    $('body').addClass('modal-open');
+  });
     $.get("/getalldata", function(data, status) {
       if (data.success==false) {
         alert("Problem in db!!!");
@@ -111,7 +114,36 @@ $(document).ready(function() {
                       });
                       oTable2.fnClearTable();
                       $.each(dt, function (key, item) {
-                          oTable2.fnAddData([`${item.ip}`, `${item.view}`, `<button value="${item.ip}" class="btn btn-danger del">Delete</button>`]);
+                          oTable2.fnAddData([`${item.ip}`, `${item.view}`, `<button class="btn btn-info geo" data-toggle="modal" href="#exampleModalLong1" value='${item.ip}'>Get It</button>`, `<button value="${item.ip}" class="btn btn-danger del">Delete</button>`]);
+                      });
+                      $('.geo').click(function(){
+                        var ip = $(this).val();
+                        $('#exampleModalLongTitle1').empty();
+                        $('#exampleModalLongTitle1').html(`<b>IP Address: </b>`+ip);
+                        $.ajax({
+                          url: "/fillipdata",
+                          type: "post",
+                          data: {
+                            ip: ip
+                          },
+                          dataType : 'json',
+                          success: function(data){
+                                if(data.success==false){
+                                  $('#tb3 tbody').empty();
+                                  $('#d3').hide();
+                                  $('#abc').show();
+                                  $('#abc').empty();
+                                  $('#abc').html(`<h3>${data.err}</h3>`);
+                                }
+                                else{
+                                  $('#d3').show();
+                                  $('#abc').hide();
+                                  $('#tb3 tbody').empty();
+                                  $('#tb3 tbody').append(`<tr><td>${data.country}</td><td>${data.timezone}</td><td>${data.isp}</td><td>${data.city}</td><td>${data.latitude}</td><td>${data.longitude}</td><td>${data.zip}</td></tr>`);
+                                }
+                          },
+                          error: function(xhr) { alert("There is some problem in making request!!!!"); }
+                        });
                       });
                       $('.del').click(function(){
                         var ip = $(this).val();

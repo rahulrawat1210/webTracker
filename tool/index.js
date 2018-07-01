@@ -7,8 +7,6 @@ const bodyParser = require("body-parser");
 var url = require("url");
 var validator = require("email-validator");
 var useragent = require('useragent');
-
-
 var cookieParser = require("cookie-parser");
 var iplocation = require('iplocation');
 var uniqid = require('uniqid');
@@ -50,7 +48,6 @@ con.connect(function(err) {
 
 
 app.get('/',function(req,res) {
-  //res.send("hello frands...");
   res.redirect("/querytool");
 })
 
@@ -76,8 +73,6 @@ app.post('/viewmore', function(req, res){
   con.query(sql, function (err, result) {
     if (err){ console.log(err.sqlMessage); res.json({success: false}); }
     else {
-      //console.log(result[0].date.toSqlString);
-      //console.log(result[0].date);
       res.json(result);
     }
   });
@@ -119,7 +114,7 @@ app.post('/fillipdata', function(req, res){
       }
       else{
           if(result.length==0){
-            res.json({success: false, err: 'This IP is not present!!!'});
+            res.json({success: false, err: 'This IP is not present in ipdata table!!!'});
           }
           else{
             if(result[0].country==''||result[0].timezone==''){
@@ -136,7 +131,7 @@ app.post('/fillipdata', function(req, res){
                   res.json({success: false, err: 'Problem in Geo Location API!!!'});
                 } else if (res.statusCode !== 200) {
                   console.log('Status:', res.statusCode);
-                  res.json({success: false, err: 'No data Found!!!!'});
+                  res.json({success: false, err: 'No data Found for this IP!!!!'});
                 } else {
                   if(data.status=='fail'){
                     res.json({success: false, err: "Invalid IP "+data.query});
