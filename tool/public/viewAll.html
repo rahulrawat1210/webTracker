@@ -14,108 +14,33 @@
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
 </head>
 <body>
+    <br>
+    <br>
     <div class="container">
         <h1>View All Data here</h1>
-        <br>
-        <div class="table-responsive">
-            <table id="tb11" class="table table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th>Site ID</th>
-                        <th>View</th>
-                        <th>Extra Details</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+        <div id="scl">
+            <div class="table-responsive" id="d1">
+                <table id="tb1" class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Site ID</th>
+                            <th>URL</th>
+                            <th>IP Address</th>
+                            <th>Browser</th>
+                            <th>Browser Version</th>
+                            <th>Date-Time</th>
+                            <th>Resolution</th>
+                            <th>OS</th>
+                            <th>Referrer</th>
+                            <th>Device Type</th>
+                            <th>Device Name</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
-      <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-focus-on="input:first">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLongTitle">Modal Title</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <div class="table-responsive" id="d2">
-                    <table id="tb2" class="table table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <td>IP Address</td>
-                                <th>Views</th>
-                                <th>Geo Location</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-                <div class="table-responsive" id="d1">
-                    <table id="tb1" class="table table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <th>IP Address</th>
-                                <th>Geo Location</th>
-                                <th>URL</th>
-                                <th>Browser</th>
-                                <th>Browser Version</th>
-                                <th>Date</th>
-                                <th>Resolution</th>
-                                <th>OS</th>
-                                <th>Referrer</th>
-                                <th>Device Type</th>
-                                <th>Time</th>
-                                <th>Device Name</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-focus-on="input:first">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title" id="exampleModalLongTitle1"></h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <div class="table-responsive" id="d3">
-                    <table id="tb3" class="table table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Country</th>
-                                <th>Timezone</th>
-                                <th>isp</th>
-                                <th>city</th>
-                                <th>latitude</th>
-                                <th>longitude</th>
-                                <th>zip</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-                <div id="abc"></div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
 <script src="script/script1.js"></script>
 </body>
 </html>

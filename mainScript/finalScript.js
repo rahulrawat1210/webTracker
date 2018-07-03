@@ -136,14 +136,15 @@ function isBot () {
 }
 var isBot = isBot();
         var date = new Date();
-        var h = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+":"+date.getMilliseconds();
+        var h = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
         var mon = date.getMonth()+1;
         var url = window.location.href,
-            date = mon+"/"+date.getDate()+"/"+date.getFullYear(),
+            date = date.getFullYear()+"-"+mon+"-"+date.getDate(),
             reslW = window.screen.availWidth,
             reslH = window.screen.availHeight,
             ref = document.referrer,
             time = h,
+            datetime = date+" "+time,
             res = reslW + " X " + reslH;
             if (ref == '')
             {
@@ -157,5 +158,5 @@ var isBot = isBot();
         //xhttp.open("POST", "http://web-analytics.pollin.me/insertlog", true);
         xhttp.open("POST", "http://localhost:3000/insertlog", true);
         xhttp.setRequestHeader("Content-Type", "application/json;chartset=UTF-8");
-        var data = JSON.stringify({url:url, date: date, ress: res, ref: ref, time: time,S_id: id, isBot: isBot});
+        var data = JSON.stringify({url:url, datetime: datetime, ress: res, ref: ref, S_id: id, isBot: isBot});
         xhttp.send(data);
