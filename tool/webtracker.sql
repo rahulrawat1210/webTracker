@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2018 at 07:57 AM
+-- Generation Time: Jul 03, 2018 at 10:48 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -34,13 +34,12 @@ CREATE TABLE `botdata` (
   `ip` varchar(300) NOT NULL,
   `browser` varchar(300) NOT NULL,
   `browser_version` varchar(300) NOT NULL,
-  `date` varchar(300) NOT NULL,
+  `datetime` datetime NOT NULL,
   `resolution` varchar(300) NOT NULL,
   `os` varchar(225) NOT NULL,
   `referrer` varchar(300) NOT NULL,
   `site_id` varchar(255) NOT NULL,
   `Device_Type` varchar(300) NOT NULL,
-  `time` varchar(100) NOT NULL,
   `Device_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -48,9 +47,9 @@ CREATE TABLE `botdata` (
 -- Dumping data for table `botdata`
 --
 
-INSERT INTO `botdata` (`visit_id`, `url`, `ip`, `browser`, `browser_version`, `date`, `resolution`, `os`, `referrer`, `site_id`, `Device_Type`, `time`, `Device_name`) VALUES
-(1, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '6/26/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', '17:26:26:437', 'Other'),
-(2, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '6/26/2018', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', '17:26:29:719', 'Other');
+INSERT INTO `botdata` (`visit_id`, `url`, `ip`, `browser`, `browser_version`, `datetime`, `resolution`, `os`, `referrer`, `site_id`, `Device_Type`, `Device_name`) VALUES
+(1, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '0000-00-00 00:00:00', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', 'Other'),
+(2, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '0000-00-00 00:00:00', '1366 X 728', 'Windows 10.0.0', '', 'BB-8r9hv7xcjipl9mh6', 'desktop', 'Other');
 
 -- --------------------------------------------------------
 
@@ -88,13 +87,12 @@ CREATE TABLE `datalog` (
   `ip` varchar(300) NOT NULL,
   `browser` varchar(300) NOT NULL,
   `browser_version` varchar(300) NOT NULL,
-  `date` date NOT NULL,
+  `datetime` datetime NOT NULL,
   `resolution` varchar(300) NOT NULL,
   `os` varchar(225) NOT NULL,
   `referrer` varchar(300) NOT NULL,
   `site_id` varchar(255) NOT NULL,
   `Device_Type` varchar(300) NOT NULL,
-  `time` varchar(100) NOT NULL,
   `Device_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -102,14 +100,33 @@ CREATE TABLE `datalog` (
 -- Dumping data for table `datalog`
 --
 
-INSERT INTO `datalog` (`visit_id`, `url`, `ip`, `browser`, `browser_version`, `date`, `resolution`, `os`, `referrer`, `site_id`, `Device_Type`, `time`, `Device_name`) VALUES
-(1, 'file:///C:/Users/rajat/Documents/webtrackerproject/webTracker/mainScript/index.html', '122.161.193.100', 'Chrome', '67.0.3396', '0000-00-00', '1920 X 1040', 'Windows 10.0.0', '', 'BB-8r9hv7xcP', 'desktop', '15:51:58:280', 'Other'),
-(2, 'file:///C:/Users/rajat/Documents/webtrackerproject/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '0000-00-00', '1920 X 1040', 'Windows 10.0.0', '', 'BB-8r9hv7xcP', 'desktop', '16:9:1:571', 'Other'),
-(3, 'file:///C:/Users/rajat/Documents/webtrackerproject/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '0000-00-00', '1920 X 1040', 'Windows 10.0.0', '', 'BB-8r9hv7xcP', 'desktop', '16:9:33:467', 'Other'),
-(4, 'file:///C:/Users/rajat/Documents/webtrackerproject/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '0000-00-00', '1920 X 1040', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcP', 'desktop', '16:12:3:403', 'Other'),
-(5, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-06-29', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcP', 'desktop', '17:26:49:822', 'Other'),
-(6, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-06-29', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcP', 'desktop', '17:32:44:748', 'Other'),
-(7, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-06-29', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcP', 'desktop', '17:34:38:558', 'Other');
+INSERT INTO `datalog` (`visit_id`, `url`, `ip`, `browser`, `browser_version`, `datetime`, `resolution`, `os`, `referrer`, `site_id`, `Device_Type`, `Device_name`) VALUES
+(2, 'file:///C:/Users/rajat/Documents/webtrackerproject/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '0000-00-00 00:00:00', '1920 X 1040', 'Windows 10.0.0', '', 'BB-8r9hv7xcP', 'desktop', 'Other'),
+(3, 'file:///C:/Users/rajat/Documents/webtrackerproject/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '0000-00-00 00:00:00', '1920 X 1040', 'Windows 10.0.0', '', 'BB-8r9hv7xcP', 'desktop', 'Other'),
+(4, 'file:///C:/Users/rajat/Documents/webtrackerproject/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '0000-00-00 00:00:00', '1920 X 1040', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcP', 'desktop', 'Other'),
+(5, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-06-29 00:00:00', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcP', 'desktop', 'Other'),
+(6, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-06-29 00:00:00', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcP', 'desktop', 'Other'),
+(7, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-06-29 00:00:00', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcP', 'desktop', 'Other'),
+(12, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 14:55:23', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcP', 'desktop', 'Other'),
+(13, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:09', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcP', 'desktop', 'Other'),
+(14, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:09', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcP', 'desktop', 'Other'),
+(15, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:10', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcP', 'desktop', 'Other'),
+(16, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:22', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xP', 'desktop', 'Other'),
+(17, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:22', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xP', 'desktop', 'Other'),
+(18, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:22', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xP', 'desktop', 'Other'),
+(19, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:22', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xP', 'desktop', 'Other'),
+(20, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:23', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xP', 'desktop', 'Other'),
+(21, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:36', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcsP', 'desktop', 'Other'),
+(22, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:38', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcsP', 'desktop', 'Other'),
+(23, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:38', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcsP', 'desktop', 'Other'),
+(24, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:39', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcsP', 'desktop', 'Other'),
+(25, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:39', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcsP', 'desktop', 'Other'),
+(26, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:39', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hv7xcsP', 'desktop', 'Other'),
+(27, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:46', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hvP', 'desktop', 'Other'),
+(28, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:46', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hvP', 'desktop', 'Other'),
+(29, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:46', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hvP', 'desktop', 'Other'),
+(30, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 15:22:46', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hvP', 'desktop', 'Other'),
+(31, 'file:///D:/GitRepo/webTracker/mainScript/index.html', '::1', 'Chrome', '67.0.3396', '2018-07-02 18:00:41', '1366 X 728', 'Windows 10.0.0', 'DIRECT HIT!!', 'BB-8r9hvP', 'desktop', 'Other');
 
 -- --------------------------------------------------------
 
@@ -180,7 +197,7 @@ ALTER TABLE `botdata`
 -- AUTO_INCREMENT for table `datalog`
 --
 ALTER TABLE `datalog`
-  MODIFY `visit_id` mediumint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `visit_id` mediumint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
