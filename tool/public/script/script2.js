@@ -106,7 +106,6 @@ $(document).ready(function () {
                                           });
                                           oTable11.fnClearTable();
                                           res.forEach(function (item) {
-                                            console.log(item.view);
                                               oTable11.fnAddData([`<button class=" btn-block btn btn-info cl" data-toggle="modal" data-target="#exampleModalLong">${item.site_id}</button>`, `${item.view}`, `<button value ="${item.site_id}" class=" btn btn-success detail" onclick="window.location='/view?site_id=${item.site_id}'">View More</button>`]);
                                           });
                                           // $('.detail').click(function(){
@@ -220,6 +219,24 @@ $(document).ready(function () {
             });
       e.preventDefault();
     })
+
+    $('#getips').click(function(){
+      $.ajax({
+        type: "POST",
+        url: '/updateallips',
+        data: {},
+                success: function (res) { if(res.success==false){ alert(res.err);}
+                                          else{
+                                            alert(res.msg);
+                                            window.location.reload();
+                                          }
+                            },
+    dataType: "json",
+        error: function(data){
+            alert("Some error occurred in making request to server!!!");
+        }
+    });
+    });
 
 
 
