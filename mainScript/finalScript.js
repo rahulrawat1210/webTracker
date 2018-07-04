@@ -136,10 +136,10 @@ function isBot () {
 }
 var isBot = isBot();
         var date = new Date();
-        var h = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
-        var mon = date.getMonth()+1;
+        var h = date.getUTCHours()+":"+date.getUTCMinutes()+":"+date.getUTCSeconds();
+        var mon = date.getUTCMonth()+1;
         var url = window.location.href,
-            date = date.getFullYear()+"-"+mon+"-"+date.getDate(),
+            date = date.getUTCFullYear()+"-"+mon+"-"+date.getUTCDate(),
             reslW = window.screen.availWidth,
             reslH = window.screen.availHeight,
             ref = document.referrer,
