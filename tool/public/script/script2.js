@@ -106,7 +106,7 @@ $(document).ready(function () {
                                           });
                                           oTable11.fnClearTable();
                                           res.forEach(function (item) {
-                                              oTable11.fnAddData([`<button class=" btn-block btn btn-info cl" data-toggle="modal" data-target="#exampleModalLong">${item.site_id}</button>`, `${item.view}`, `<button value ="${item.site_id}" class=" btn btn-success detail" onclick="window.location='/view?site_id=${item.site_id}'">View More</button>`]);
+                                              oTable11.fnAddData([`<button class=" btn-block btn btn-info cl" data-toggle="modal" data-target="#exampleModalLong">${item.site_id}</button>`, `${item.fview}`, `${item.bview}`, `<button value ="${item.site_id}" class=" btn btn-success detail" onclick="window.location='/view?site_id=${item.site_id}'">View More</button>`]);
                                           });
                                           // $('.detail').click(function(){
                                           //   $("#d1").show();
@@ -141,7 +141,7 @@ $(document).ready(function () {
                                                         });
                                                         oTable2.fnClearTable();
                                                         $.each(dt, function (key, item) {
-                                                            oTable2.fnAddData([`${item.ip}`, `${item.view}`, `<button class="btn btn-info geo" data-toggle="modal" href="#exampleModalLong1" value='${item.ip}'>Get It</button>`, `<button value="${item.ip}" class="btn btn-danger del">Delete</button>`]);
+                                                            oTable2.fnAddData([`${item.ip}`, `${item.fview}`,  `${item.bview}`,`<button class="btn btn-info geo" data-toggle="modal" href="#exampleModalLong1" value='${item.ip}'>Get It</button>`, `<button value="${item.ip}" class="btn btn-danger del">Delete</button>`]);
                                                         });
                                                         $('.geo').click(function(){
                                                           var ip = $(this).val();

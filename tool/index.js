@@ -84,7 +84,7 @@ app.get('/getalldata',function(req,res) {
 })
 
 app.get('/getdata',function(req,res) {
-  var sql = `select site_id, visit_id, url, ip, browser, browser_version, datetime, resolution, os, referrer, Device_Type, Device_name, country from datalog natural join ipinfo order by datetime desc`;
+  var sql = `select site_id, isAdmin, visit_id, url, ip, browser, browser_version, datetime, resolution, os, referrer, Device_Type, Device_name, country from datalog natural join ipinfo order by datetime desc`;
     con.query(sql, function (err, result) {
       if (err){ console.log(err.sqlMessage); res.json({success: false}); }
       else res.json(result);
@@ -99,7 +99,9 @@ app.post('/viewmore', function(req, res){
   var condip = (req.body.ip=='')?"1=1":"ip='"+req.body.ip+"'";
   var condstart = (req.body.start=='')?"1=1":"datetime>='"+req.body.start+"'";
   var condend = (req.body.end=='')?"1=1":"datetime<='"+req.body.end+"'";
-  var sql = `select datalog.*, ipinfo.country from datalog natural join ipinfo where site_id='${req.body.siteid}' and ${condip} and ${condstart} and ${condend} order by datetime desc`;
+  var v = req.body.v;
+  var f = ['Frontend', 'Backend'];
+  var sql = `select datalog.*, ipinfo.country from datalog natural join ipinfo where site_id='${req.body.siteid}' and ${condip} and ${condstart} and ${condend} and isAdmin='${f[v]}' order by datetime desc`;
   con.query(sql, function (err, result) {
     if (err){ console.log(err.sqlMessage); res.json({success: false}); }
     else {
@@ -107,7 +109,6 @@ app.post('/viewmore', function(req, res){
     }
   });
 })
-
 
 app.post('/deleteentry', function(req, res){
   var sql = `delete from datalog where ip='${req.body.ip}' and site_id='${req.body.siteid}'`;
@@ -125,7 +126,7 @@ app.post('/search', function(req, res){
   var condid = (req.body.siteid=='')?"1=1":"site_id='"+req.body.siteid+"'";
   var condstart = (req.body.start=='')?"1=1":"datetime>='"+req.body.start+"'";
   var condend = (req.body.end=='')?"1=1":"datetime<='"+req.body.end+"'";
-  var sql = `select site_id, count(site_id) as view, visit_id, url, ip, browser, browser_version, datetime, resolution, os, referrer, device_type, device_name from datalog where ${condid} and ${condip} and ${condstart} and ${condend} group by site_id order by view desc`;
+  var sql = `select site_id, count(IF(isAdmin='Frontend',1,NULL)) as fview, count(IF(isAdmin='Backend',1,NULL)) as bview, visit_id, url, ip, browser, browser_version, datetime, resolution, os, referrer, device_type, device_name from datalog where ${condid} and ${condip} and ${condstart} and ${condend} group by site_id order by fview desc`;
   con.query(sql, function(err, result){
     if(err){
       console.log(err.sqlMessage);
@@ -218,7 +219,7 @@ app.post('/getallip',function(req,res) {
   var condip = (req.body.ip=='')?"1=1":"ip='"+req.body.ip+"'";
   var condstart = (req.body.start=='')?"1=1":"datetime>='"+req.body.start+"'";
   var condend = (req.body.end=='')?"1=1":"datetime<='"+req.body.end+"'";
-  var sql = `select ip, count(ip) as view, visit_id, url, site_id, browser, browser_version, datetime, resolution, os, referrer, device_type, device_name from datalog where site_id='${req.body.siteid}' and ${condip} and ${condstart} and ${condend} group by ip order by view desc`;
+  var sql = `select ip, count(IF(isAdmin='Frontend',1,NULL)) as fview, count(IF(isAdmin='Backend',1,NULL)) as bview from datalog where site_id='${req.body.siteid}' and ${condip} and ${condstart} and ${condend} group by ip order by fview desc`;
     con.query(sql, function (err, result) {
       if (err){ console.log(err.sqlMessage); res.json({success: false}); }
       else res.json(result);
@@ -231,8 +232,9 @@ app.post("/insertlog", function(req, res, next) {
   var botInt = req.body.isBot;
   var ver = req.device.parser.useragent.major+"."+req.device.parser.useragent.minor+"."+req.device.parser.useragent.patch;
   var agent = useragent.parse(req.headers['user-agent']);
+  //var isAdmin = req.body.isAdmin;
   const IP = req.clientIp;
-  var sql = `insert into ${tname[botInt]} (url, ip, browser, browser_version, datetime, resolution, os, referrer, site_id, Device_Type, Device_name) values('${req.body.url}','${IP}','${req.device.parser.useragent.family}','${ver}','${req.body.datetime}','${req.body.ress}','${agent.os.toString()}','${req.body.ref}','${req.body.S_id}','${req.device.type}','${req.device.name}')`;
+  var sql = `insert into ${tname[botInt]} (isAdmin, url, ip, browser, browser_version, datetime, resolution, os, referrer, site_id, Device_Type, Device_name) values('${req.body.isAdmin}', '${req.body.url}','${IP}','${req.device.parser.useragent.family}','${ver}','${req.body.datetime}','${req.body.ress}','${agent.os.toString()}','${req.body.ref}','${req.body.S_id}','${req.device.type}','${req.device.name}')`;
     con.query(sql, function (err, result) {
       if (err) console.log(err.sqlMessage);
       else console.log("Inserted into datalog!!");
@@ -261,7 +263,9 @@ app.post("/logout", function(req, res, next) {
 });
 
 app.post('/getgraphdata', (req, res)=>{
-  var sql = `SELECT cast(datetime as date) as date, count(site_id) as view FROM datalog where site_id="${req.body.siteid}" group by date order by date desc limit 20`;
+  var v = req.body.v;
+  var f = ['Frontend', 'Backend'];
+  var sql = `SELECT cast(datetime as date) as date, count(site_id) as view FROM datalog where site_id="${req.body.siteid}" and isAdmin='${f[v]}' group by date order by date desc limit 20`;
     con.query(sql, function (err, result) {
       if (err) {
         res.json({success: false, err: 'Problem in db query!!!'});

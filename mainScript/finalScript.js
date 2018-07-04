@@ -146,17 +146,27 @@ var isBot = isBot();
             time = h,
             datetime = date+" "+time,
             res = reslW + " X " + reslH;
-            if (ref == '')
-            {
+            if (ref == ''){
                 ref = "DIRECT HIT!!";
-                }
+            }
         if (window.XMLHttpRequest) {
             xhttp = new XMLHttpRequest();
         } else {
             xhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
+        var isAdmin = 'Frontend';
+        var getLocation = function(href) {
+            var l = document.createElement("a");
+            l.href = href;
+            return l;
+        };
+        var l = getLocation(url);
+        host = l.hostname;
+        if(host === 'test-admin.buildbot.io'||host === 'admin.buildbot.io'){
+            isAdmin = 'Backend';
+        }
         //xhttp.open("POST", "http://web-analytics.pollin.me/insertlog", true);
         xhttp.open("POST", "http://localhost:3000/insertlog", true);
         xhttp.setRequestHeader("Content-Type", "application/json;chartset=UTF-8");
-        var data = JSON.stringify({url:url, datetime: datetime, ress: res, ref: ref, S_id: id, isBot: isBot});
+        var data = JSON.stringify({url:url, datetime: datetime, ress: res, ref: ref, S_id: id, isBot: isBot, isAdmin: isAdmin});
         xhttp.send(data);

@@ -27,7 +27,7 @@ $(document).ready(function() {
                                             });
                                             oTable.fnClearTable();
                                             $.each(res, function (key, item) {
-                                                oTable.fnAddData([item.site_id, item.url, item.ip, item.country, item.browser, item.browser_version, item.datetime, item.resolution, item.os, item.referrer, item.Device_Type, item.Device_name]);
+                                                oTable.fnAddData([item.site_id, item.isAdmin, item.url, item.ip, item.country, item.browser, item.browser_version, item.datetime, item.resolution, item.os, item.referrer, item.Device_Type, item.Device_name]);
                                             });
                                     }
                                 },
