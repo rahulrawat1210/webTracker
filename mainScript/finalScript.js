@@ -165,8 +165,8 @@ var isBot = isBot();
         if(host === 'test-admin.buildbot.io'||host === 'admin.buildbot.io'){
             isAdmin = 'Backend';
         }
-        //xhttp.open("POST", "http://web-analytics.pollin.me/insertlog", true);
-        xhttp.open("POST", "http://localhost:3000/insertlog", true);
+        xhttp.open("POST", "http://web-analytics.pollin.me/insertlog", true);
+        //xhttp.open("POST", "http://localhost:3000/insertlog", true);
         xhttp.setRequestHeader("Content-Type", "application/json;chartset=UTF-8");
         var data = JSON.stringify({url:url, datetime: datetime, ress: res, ref: ref, S_id: id, isBot: isBot, isAdmin: isAdmin});
         xhttp.send(data);
